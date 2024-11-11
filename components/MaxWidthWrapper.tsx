@@ -7,9 +7,15 @@ interface maxWidthWrapperProps {
 
 const MaxWidthWrapper = ({ children, className }: maxWidthWrapperProps) => {
   return (
-    <div className={cn("border w-full p-2 sm:p-5 md:p-6 lg:p-8 ", className)}>
+    <div
+      className={cn(
+        " p-12 px-7 sm:p-14 md:px-16 lg:p-18 lg:px-28 border border-black",
+        className
+      )}
+    >
       {children}
     </div>
   );
 };
+
 export default MaxWidthWrapper;

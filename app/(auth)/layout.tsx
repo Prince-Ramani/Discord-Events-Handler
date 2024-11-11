@@ -7,7 +7,7 @@ interface authLayoutProps {
 const AuthLayout = ({ children }: authLayoutProps) => {
   return (
     <div
-      className={`h-full w-full  flex flex-col justify-center items-center bg-blue-500   sm:bg-[url('https://res.cloudinary.com/dwxzguawt/image/upload/v1731130487/pexels-marko-mocilac-597205498-17164973_lggyxd.jpg')]  sm:bg-cover  sm:bg-center sm:bg-no-repeat`}
+      className={`h-screen sm:h-full w-full  flex flex-col justify-start   sm:justify-center items-center bg-blue-500   sm:bg-[url('https://res.cloudinary.com/dwxzguawt/image/upload/v1731130487/pexels-marko-mocilac-597205498-17164973_lggyxd.jpg')]  sm:bg-cover  sm:bg-center sm:bg-no-repeat`}
     >
       <div className="flex  justify-between items-center relative top-[10px] z-50 ">
         <div>
