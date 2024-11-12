@@ -6,7 +6,14 @@ import { Button } from "@/components/ui/button";
 import { CustomButton } from "@/components/CustomButton";
 import Heading from "@/components/Heading";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { Check } from "lucide-react";
+import {
+  Check,
+  LucideStar,
+  Star,
+  StarIcon,
+  Stars,
+  Verified,
+} from "lucide-react";
 import DiscordUi from "@/components/Discord-Ui";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -134,23 +141,23 @@ const Page = () => {
         <DiscordUi />
       </section>
       <section>
-        <MaxWidthWrapper className="lg:px-40">
-          <div className="flex flex-col">
-            <div className="p-2 border">
+        <MaxWidthWrapper className="lg:px-40 bg-slate-200">
+          <div className="flex flex-col ">
+            <div className="p-2 ">
               <Heading>Intuitive Monitoring</Heading>
               <Heading className="text-purple-600 px-2 sm:px-0 pt-2 ">
                 Stay ahead with real-time insights
               </Heading>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 p-2 gap-2 lg:text-center ">
+            <div className="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 p-2 gap-2 md:text-center  ">
               {/* !st */}
-              <div className="lg:row-span-2 border rounded-sm p-1 pb-0 lg:rounded-l-[2rem] bg-white max-h-[600px] md:max-h-[700px]  ">
+              <div className="lg:row-span-2 border rounded-sm p-1 pb-0 lg:rounded-l-[2rem] bg-white max-h-[600px] md:max-h-[700px]   ">
                 <div className="  rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)] h-full flex items-center justify-between flex-col  flex-1">
                   <div className=" p-4 mx-5 flex flex-col gap-3">
                     <h1 className="font-medium  text-xl xl:text-2xl 3xl:text-3xl  ">
                       Real-time notifications
                     </h1>
-                    <p className="text-gray-600 tex">
+                    <p className="text-gray-600 text-sm ">
                       Get notified about critical events the moment they happen,
                       no matter if you're at home or on the go.
                     </p>
@@ -213,7 +220,7 @@ const Page = () => {
                               ...oneDark['pre[class*="language-"]'],
                               background: "transparent",
                               overflow: "hidden",
-                              fontSize: "16px",
+                              fontSize: "14px",
                             },
                             'code[class*="language-"]': {
                               ...oneDark['code[class*="language-"]'],
@@ -251,6 +258,84 @@ const Page = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </MaxWidthWrapper>
+      </section>
+      <section>
+        <MaxWidthWrapper className="bg-white">
+          <div className="flex flex-1 justify-center items-center flex-col ">
+            <div className="flex flex-col justify-center items-center gap-2 mb-20">
+              <h1 className=" text-purple-600">Real-World Experiences</h1>
+              <Heading>What our customers say</Heading>
+            </div>
+            <div className="bg-slate-200 rounded-md md:rounded-lg p-4 flex flex-col gap-20 md:flex-row md:p-16  ">
+              <div className="flex flex-col justify-center items-center  gap-4">
+                <div className="flex gap-2">
+                  <Star className="fill-blue-400 text-blue-600 size-5" />
+                  <Star className="fill-blue-400 text-blue-600 size-5" />
+                  <Star className="fill-blue-400 text-blue-600 size-5" />
+                  <Star className="fill-blue-400 text-blue-600 size-5" />
+                  <Star className="fill-blue-400 text-blue-600 size-5" />
+                </div>
+                <p className="text-base sm:text-lg lg:text-lg/8 font-medium tracking-tight text-gray-600 text-center lg:text-left text-pretty md:text-sm">
+                  {" "}
+                  Zeno has been a game-changer for me. I've been using it for
+                  two months now and seeing sales pop up in real-time is super
+                  satisfying.
+                </p>
+                <Image
+                  src="https://res.cloudinary.com/dwxzguawt/image/upload/v1731395836/8bfa1f3ab8ff1994e5a4674155e63b20_t47xb0.jpg"
+                  height={70}
+                  width={70}
+                  alt="userPic"
+                  className="rounded-full"
+                />
+                <div className="flex justify-center items-center flex-col">
+                  <div className=" flex gap-2 justify-center items-center">
+                    <h1 className="font-semibold">Freya</h1>
+                    <Verified className="size-5 fill-blue-500 text-white" />
+                  </div>
+                  <p className="text-gray-500">@isefreys</p>
+                </div>
+              </div>
+              <div className="flex flex-col justify-center items-center  gap-4">
+                <div className="flex gap-2">
+                  <Star className="fill-blue-400 text-blue-600 size-5" />
+                  <Star className="fill-blue-400 text-blue-600 size-5" />
+                  <Star className="fill-blue-400 text-blue-600 size-5" />
+                  <Star className="fill-blue-400 text-blue-600 size-5" />
+                  <Star className="fill-blue-400 text-blue-600 size-5" />
+                </div>
+                <p className="text-base sm:text-lg lg:text-lg/8 font-medium tracking-tight text-gray-600 text-center lg:text-left text-pretty md:text-sm">
+                  {" "}
+                  Zeno been paying off for our SaaS. Nice to have simple way to
+                  see how we're doing day-to-day. Definitely makes our lives
+                  easier.
+                </p>
+                <Image
+                  src="https://res.cloudinary.com/dwxzguawt/image/upload/v1731396876/0861b76ad6e3b156c2b9d61feb6af864_ekjmdt.jpg"
+                  height={70}
+                  width={70}
+                  alt="userPic"
+                  className="rounded-full"
+                />
+                <div className="flex justify-center items-center flex-col">
+                  <div className=" flex gap-2 justify-center items-center">
+                    <h1 className="font-semibold">Kai Durant</h1>
+                    <Verified className="size-5 fill-blue-500 text-white" />
+                  </div>
+                  <p className="text-gray-500">@kdurant_</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-10 mb-5  flex justify-center items-center">
+            <CustomButton
+              className="bg-purple-400 p-2 w-[50%] min-w-[250px]"
+              href="/sign-up"
+            >
+              Start For Free Today
+            </CustomButton>
           </div>
         </MaxWidthWrapper>
       </section>
