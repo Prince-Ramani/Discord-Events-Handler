@@ -6,14 +6,7 @@ import { Button } from "@/components/ui/button";
 import { CustomButton } from "@/components/CustomButton";
 import Heading from "@/components/Heading";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import {
-  Check,
-  LucideStar,
-  Star,
-  StarIcon,
-  Stars,
-  Verified,
-} from "lucide-react";
+import { Check, Star, Verified } from "lucide-react";
 import DiscordUi from "@/components/Discord-Ui";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -85,7 +78,7 @@ const Page = () => {
               {isSignedIn ? (
                 <CustomButton
                   href="/dashboard"
-                  className="bg-blue-700 p-2 text-xs sm:text-base  md:p-2 lg:px-5"
+                  className="bg-purple-600 p-2 text-xs sm:text-base  md:p-2 lg:px-5"
                 >
                   Dashboard
                 </CustomButton>
