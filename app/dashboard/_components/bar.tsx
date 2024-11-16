@@ -1,8 +1,8 @@
 "use client";
 
 import { ArrowLeft } from "lucide-react";
-import Heading from "./Heading";
-import { Button } from "./ui/button";
+import Heading from "../../../components/Heading";
+import { Button } from "../../../components/ui/button";
 import { useRouter } from "next/navigation";
 interface BarProps {
   title: string;

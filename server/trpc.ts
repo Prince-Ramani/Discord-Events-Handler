@@ -1,8 +1,8 @@
-import { Context } from "@/server/Context";
 import { initTRPC } from "@trpc/server";
 import { authenticate } from "./Middleware/auth-middleware";
+import { createContext } from "./Context";
 
-const trpc = initTRPC.context<Context>().create();
+const trpc = initTRPC.context<typeof createContext>().create();
 
 export const router = trpc.router;
 export const procedure = trpc.procedure;

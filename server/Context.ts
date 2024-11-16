@@ -1,18 +1,15 @@
-import { User } from "@prisma/client";
-
-export interface Context {
-  authHeader: string | null;
-  headers: Headers;
-  user?: User | null;
-}
-
 export const createContext = ({ req }: { req: Request }) => {
   const headers = req.headers;
-  const authHeader = headers.get("Authorization");
+  const authorization =
+    headers.get("authorization") || headers.get("Authorization");
+
+  console.log("Authorization Header:", authorization);
 
   return {
     headers,
-    authHeader,
-    user: null,
+    authorization,
   };
 };
+
+// Use Awaited<ReturnType> to infer the context type
+export type Context = Awaited<ReturnType<typeof createContext>>;

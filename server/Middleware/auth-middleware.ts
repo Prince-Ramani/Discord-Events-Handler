@@ -1,15 +1,10 @@
 import { TRPCError } from "@trpc/server";
-import { Context } from "../Context";
 import { prisma } from "@/app/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 
-export const authenticate = async ({
-  ctx,
-  next,
-}: {
-  ctx: Context;
-  next: any;
-}) => {
+export const authenticate = async ({ ctx, next }: { ctx: any; next: any }) => {
+  console.log(JSON.stringify(ctx, null, 2));
+
   if (!ctx.authHeader) {
     throw new TRPCError({
       message: "Authorization header is missing or invalid",
