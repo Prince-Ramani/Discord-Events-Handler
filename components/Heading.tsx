@@ -9,7 +9,7 @@ function Heading({ children, className }: headingProps) {
   return (
     <div
       className={cn(
-        "text-4xl sm:text-5xl font-heading  text-center text-pretty font-medium flex flex-col",
+        "text-4xl sm:text-5xl font-heading text-center text-pretty font-medium flex flex-col",
         className
       )}
     >

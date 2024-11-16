@@ -5,6 +5,7 @@ import "./globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
 import { neobrutalism } from "@clerk/themes";
+import Provider from "@/components/Provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -41,7 +42,7 @@ export default function RootLayout({
         <body
           className={`  ${geistSans.variable} ${geistMono.variable}  antialiased bg-slate-100`}
         >
-          {children}
+          <Provider>{children}</Provider>
         </body>
       </html>
     </ClerkProvider>
