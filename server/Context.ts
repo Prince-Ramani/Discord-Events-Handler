@@ -1,15 +1,16 @@
-export const createContext = ({ req }: { req: Request }) => {
-  const headers = req.headers;
-  const authorization =
-    headers.get("authorization") || headers.get("Authorization");
+import { User } from "@prisma/client";
 
-  console.log("Authorization Header:", authorization);
+export type ContextProps = {
+  req: Request;
+  user: User | null;
+};
 
+export const createContext = ({ req }: { req: Request }): ContextProps => {
+  let user: User | null = null;
   return {
-    headers,
-    authorization,
+    req,
+    user,
   };
 };
 
-// Use Awaited<ReturnType> to infer the context type
 export type Context = Awaited<ReturnType<typeof createContext>>;

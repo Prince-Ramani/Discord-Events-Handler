@@ -1,43 +1,25 @@
 import { TRPCError } from "@trpc/server";
 import { prisma } from "@/app/prisma";
-import { currentUser } from "@clerk/nextjs/server";
+import { currentUser, getAuth } from "@clerk/nextjs/server";
+import { Context, ContextProps } from "../context";
 
-export const authenticate = async ({ ctx, next }: { ctx: any; next: any }) => {
-  console.log(JSON.stringify(ctx, null, 2));
-
-  if (!ctx.authHeader) {
-    throw new TRPCError({
-      message: "Authorization header is missing or invalid",
-      code: "UNAUTHORIZED",
-    });
-  }
-
-  const apiKey = ctx.authHeader.split(" ")[1];
-
-  const user = await prisma.user.findUnique({
-    where: {
-      apiKey,
-    },
-  });
-
-  if (user) {
-    return next({
-      ctx: {
-        ...ctx,
-        user,
-      },
-    });
-  }
-
+export const authenticate = async ({
+  ctx,
+  next,
+}: {
+  ctx: ContextProps;
+  next: any;
+}) => {
   const auth = await currentUser();
 
-  if (!auth)
+  if (!auth) {
     throw new TRPCError({
       message: "Authorization header is missing or invalid",
       code: "UNAUTHORIZED",
     });
+  }
 
-  const authUser = await prisma.user.findFirst({
+  const authUser = await prisma.user.findUnique({
     where: {
       externalId: auth.id,
     },
@@ -45,10 +27,12 @@ export const authenticate = async ({ ctx, next }: { ctx: any; next: any }) => {
 
   if (!authUser) {
     throw new TRPCError({
-      message: "Authorization header is missing or invalid",
+      message: "User not found",
       code: "UNAUTHORIZED",
     });
   }
+
+  console.log("Middleware called");
 
   return next({
     ctx: {

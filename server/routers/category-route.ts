@@ -4,18 +4,23 @@ import { privateProcedure, router } from "../trpc";
 import { startOfMonth } from "date-fns";
 import { z } from "zod";
 import { CATEGORY_NAME_VALIDATOR } from "@/components/validators/category_name_validator";
-import { color } from "framer-motion";
 import { colorParser } from "@/lib/color";
 import { TRPCError } from "@trpc/server";
 export const categoryRouter = router({
   getEventCategories: privateProcedure.query(async ({ ctx }) => {
     const now = new Date();
     const firstDayOfMonth = startOfMonth(now);
-    console.log(ctx);
+
+    if (!ctx.user) {
+      throw new TRPCError({
+        message: "User not authenticated",
+        code: "UNAUTHORIZED",
+      });
+    }
 
     const categories = await prisma.eventCategory.findMany({
       where: {
-        userId: ctx.user?.id,
+        userId: ctx.user.id,
       },
       select: {
         id: true,
