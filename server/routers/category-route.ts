@@ -115,8 +115,6 @@ export const categoryRouter = router({
         });
       }
 
-      console.log(ctx.user.id, input.name);
-
       await prisma.eventCategory.delete({
         where: {
           userId_name: {
@@ -128,4 +126,27 @@ export const categoryRouter = router({
 
       return { success: true };
     }),
+
+  quickStartCategories: privateProcedure.mutation(async ({ ctx }) => {
+    if (!ctx.user) {
+      throw new TRPCError({
+        message: "User not authenticated",
+        code: "UNAUTHORIZED",
+      });
+    }
+
+    const user = ctx.user;
+
+    const to = await prisma.eventCategory.createMany({
+      data: [
+        { name: "bug", emoji: "🐛", color: 0xff6b6b },
+        { name: "sale", emoji: "💰", color: 0xffeb3b },
+        { name: "question", emoji: "🤔", color: 0x6c5ce7 },
+      ].map((category) => ({
+        ...category,
+        userId: user.id,
+      })),
+    });
+    return { success: true };
+  }),
 });

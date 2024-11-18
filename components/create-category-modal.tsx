@@ -60,11 +60,13 @@ export const CreateEventCategoryModal = ({
   containerClassName,
 }: CreateEventCategoryModel) => {
   const [isOpen, setIsOpen] = useState(false);
-  const queryClient = useQueryClient();
+  const utils = trpc.useUtils();
 
   const { mutate: createEventCategory, isPending } =
     trpc.category.createCategory.useMutation({
       onSuccess: (data) => {
+        utils.category.getEventCategories.invalidate();
+        reset();
         toast.success(`${data.name} category created successfully!`);
         setIsOpen(false);
       },
@@ -75,6 +77,7 @@ export const CreateEventCategoryModal = ({
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<EventCategoryForm>({
     resolver: zodResolver(EVENT_CATEGORY_VALIDATOR),

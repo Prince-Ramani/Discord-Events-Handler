@@ -20,7 +20,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import NoCategory from "./No-categories";
 
 const DashboardContent = () => {
-  const queryClient = useQueryClient();
+  const utils = trpc.useUtils();
+
   const router = useRouter();
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
 
@@ -33,6 +34,7 @@ const DashboardContent = () => {
   const { mutate: deleteCategoryMutation, isPending } =
     trpc.category.deleteCategory.useMutation({
       onSuccess: () => {
+        utils.category.getEventCategories.invalidate();
         toast.success(`${itemToDelete} Category deleted successfully`);
         setItemToDelete(null);
       },
