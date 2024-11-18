@@ -32,8 +32,6 @@ export const authenticate = async ({
     });
   }
 
-  console.log("Middleware called");
-
   return next({
     ctx: {
       ...ctx,

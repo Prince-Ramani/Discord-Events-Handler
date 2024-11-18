@@ -104,4 +104,28 @@ export const categoryRouter = router({
 
       return category;
     }),
+
+  deleteCategory: privateProcedure
+    .input(z.object({ name: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.user) {
+        throw new TRPCError({
+          message: "User not authenticated",
+          code: "UNAUTHORIZED",
+        });
+      }
+
+      console.log(ctx.user.id, input.name);
+
+      await prisma.eventCategory.delete({
+        where: {
+          userId_name: {
+            userId: ctx.user.id,
+            name: input.name,
+          },
+        },
+      });
+
+      return { success: true };
+    }),
 });

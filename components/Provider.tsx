@@ -11,7 +11,17 @@ interface ProviderProps {
 
 function Provider({ children }: ProviderProps) {
   // Use useMemo to avoid re-creating the clients on every render
-  const queryClient = useMemo(() => new QueryClient(), []);
+  const queryClient = useMemo(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+    []
+  );
   const trpcClient = useMemo(
     () =>
       trpc.createClient({
