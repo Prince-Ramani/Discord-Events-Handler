@@ -6,7 +6,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { neobrutalism } from "@clerk/themes";
 import Provider from "@/components/Provider";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

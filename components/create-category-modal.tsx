@@ -12,7 +12,7 @@ import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { trpc } from "@/server/client";
-import toast from "react-hot-toast";
+import { toast } from "@/hooks/use-toast";
 
 const EVENT_CATEGORY_VALIDATOR = z.object({
   name: CATEGORY_NAME_VALIDATOR,
@@ -67,7 +67,9 @@ export const CreateEventCategoryModal = ({
       onSuccess: (data) => {
         utils.category.getEventCategories.invalidate();
         reset();
-        toast.success(`${data.name} category created successfully!`);
+        toast({
+          description: `${data.name} category created successfully!`,
+        });
         setIsOpen(false);
       },
     });

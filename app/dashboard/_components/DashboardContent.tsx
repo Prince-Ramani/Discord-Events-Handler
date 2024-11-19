@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { toast } from "react-hot-toast";
 
 import {
   ArrowRight,
@@ -16,10 +15,11 @@ import { format } from "date-fns";
 import LoadingSpinner from "@/components/LoadindSpinner";
 import { trpc } from "@/server/client";
 import { Modal } from "@/components/ui/modal";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import NoCategory from "./No-categories";
+import { toast } from "@/hooks/use-toast";
 
 const DashboardContent = () => {
+  if (true) return <NoCategory />;
   const utils = trpc.useUtils();
 
   const router = useRouter();
@@ -35,11 +35,15 @@ const DashboardContent = () => {
     trpc.category.deleteCategory.useMutation({
       onSuccess: () => {
         utils.category.getEventCategories.invalidate();
-        toast.success(`${itemToDelete} Category deleted successfully`);
+        toast({
+          description: `${itemToDelete} Category deleted successfully`,
+        });
         setItemToDelete(null);
       },
       onError: (error) => {
-        toast.error("Failed to delete the category. Please try again.");
+        toast({
+          description: `Failed to delete the category. Please try again`,
+        });
         console.log(error);
       },
     });

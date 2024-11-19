@@ -2,16 +2,18 @@ import { CreateEventCategoryModal } from "@/components/create-category-modal";
 import Heading from "@/components/Heading";
 import LoadingSpinner from "@/components/LoadindSpinner";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
 import { trpc } from "@/server/client";
 import { PlusIcon } from "lucide-react";
-import toast from "react-hot-toast";
 
 const NoCategory = () => {
   const utils = trpc.useUtils();
   const { mutate: QuickStart, isPending } =
     trpc.category.quickStartCategories.useMutation({
       onSuccess: () => {
-        toast.success("Let's Goooooooooooo!");
+        toast({
+          description: "Lets's Gooooooooo!",
+        });
         utils.category.getEventCategories.invalidate();
       },
     });
@@ -22,7 +24,7 @@ const NoCategory = () => {
         <img
           src="https://res.cloudinary.com/dwxzguawt/image/upload/v1731929549/pngegg_mz8ga6.png"
           alt="logo"
-          className="z-10  h-30 w-60 sm:w-90 relative top-5 sm:top-8 rotate-12 select-none   "
+          className="hidden md:block  h-30 w-60 sm:w-90 relative  top-5 sm:top-8 rotate-12 select-none"
         />
         <Heading className="text-purple-500 text-6xl sm:text-8xl">Zeno</Heading>
       </div>
@@ -37,7 +39,7 @@ const NoCategory = () => {
         <Button
           variant="outline"
           size="lg"
-          className="bg-purple-600/70 text-white px-24 py-6 flex justify-between text-lg"
+          className="bg-purple-600/70 text-white px-16 py-3 lg:px-16 lg:py-5 flex justify-between "
           disabled={isPending}
           onClick={() => QuickStart()}
         >
@@ -51,8 +53,12 @@ const NoCategory = () => {
           )}
         </Button>
         <CreateEventCategoryModal>
-          <Button size="lg" className="py-6 px-20" disabled={isPending}>
-            <PlusIcon className="" />
+          <Button
+            size="lg"
+            className="py-3 lg:py-5 px-16  "
+            disabled={isPending}
+          >
+            <PlusIcon />
             Add Category
           </Button>
         </CreateEventCategoryModal>

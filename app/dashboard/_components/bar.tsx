@@ -8,17 +8,21 @@ import { ReactNode } from "react";
 interface BarProps {
   title: string;
   backButton?: boolean;
+  backButtonUrl?: string;
   cta?: ReactNode;
 }
 
-const Bar = ({ title, backButton = true, cta }: BarProps) => {
+const Bar = ({ title, backButton = true, backButtonUrl, cta }: BarProps) => {
   const router = useRouter();
   return (
     <>
       <div className="  p-2 sm:p-3 lg:p-4 flex items-center gap-5 sm:gap-7 md:gap-9 lg:gap-10  ">
         {backButton ? (
           <div>
-            <Button variant="outline" onClick={() => router.back()}>
+            <Button
+              variant="outline"
+              onClick={() => router.push(`${backButtonUrl}`)}
+            >
               <ArrowLeft />
             </Button>
           </div>

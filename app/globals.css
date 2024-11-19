@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -15,9 +26,8 @@ body {
   height: 100%;
 }
 
-
-
-html, body {
+html,
+body {
   height: 100%;
   margin: 0; /* Removes the default margin */
 }
@@ -78,7 +88,6 @@ html, body {
     --chart-5: 340 75% 55%;
   }
 }
-
 
 @layer base {
   * {
