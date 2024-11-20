@@ -24,23 +24,21 @@ const Page = async () => {
 
   return (
     <>
-      <div className="min-h-full h-full w-full overflow-y-scroll no-scrollbar  bg-slate-100 flex">
-        <Sidebar />
-
-        <div className="min-h-full w-full mt-16 md:mt-0 md:ml-[200px] lg:ml-[300px] ">
-          <Bar
-            title="Dashboard"
-            backButton={true}
-            backButtonUrl="/"
-            cta={
-              <CreateEventCategoryModal>
-                <Button className="w-full sm:w-fit">
-                  <PlusIcon className="size-4 mr-2" />
-                  Add Category
-                </Button>
-              </CreateEventCategoryModal>
-            }
-          />
+      <div className=" min-h-full  flex flex-col    overflow-y-scroll no-scrollbar  ">
+        <Bar
+          title="Dashboard"
+          backButton={true}
+          backButtonUrl="/"
+          cta={
+            <CreateEventCategoryModal>
+              <Button className="w-full sm:w-fit">
+                <PlusIcon className="size-4 mr-2" />
+                Add Category
+              </Button>
+            </CreateEventCategoryModal>
+          }
+        />
+        <div className="flex flex-1  ">
           <DashboardContent />
         </div>
       </div>

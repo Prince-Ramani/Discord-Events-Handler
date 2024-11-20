@@ -1,6 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/app/prisma";
 import { notFound } from "next/navigation";
+import Bar from "../../_components/bar";
 
 interface PageProps {
   params: {
@@ -43,8 +44,9 @@ const Page = async ({ params }: PageProps) => {
   });
 
   if (!category) return notFound();
+  const hasEvents = category._count.events > 0;
 
-  return <div>{category.name}</div>;
+  return <Bar title={`${category.emoji} ${category.name} events`}></Bar>;
 };
 
 export default Page;

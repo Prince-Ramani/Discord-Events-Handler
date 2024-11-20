@@ -19,7 +19,7 @@ const NoCategory = () => {
     });
 
   return (
-    <div className="flex flex-1 flex-col min-h-[80%]  justify-center items-center">
+    <div className="flex flex-1 flex-col min-h-full  justify-center items-center border border-white">
       <div className="flex flex-col items-center justify-center  w-full">
         <img
           src="https://res.cloudinary.com/dwxzguawt/image/upload/v1731929549/pngegg_mz8ga6.png"

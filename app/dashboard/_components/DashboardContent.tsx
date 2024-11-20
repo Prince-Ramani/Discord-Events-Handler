@@ -19,7 +19,6 @@ import NoCategory from "./No-categories";
 import { toast } from "@/hooks/use-toast";
 
 const DashboardContent = () => {
-  if (true) return <NoCategory />;
   const utils = trpc.useUtils();
 
   const router = useRouter();
@@ -50,7 +49,7 @@ const DashboardContent = () => {
 
   if (isLoading || isFetching) {
     return (
-      <div className="flex flex-1 h-full justify-center items-center">
+      <div className="flex flex-1 min-h-full w-full   justify-center items-center">
         <LoadingSpinner />
       </div>
     );
@@ -58,7 +57,7 @@ const DashboardContent = () => {
   if (categories?.length == 0) return <NoCategory />;
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10  w-full min-h-full  p-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10  w-full   p-10  min-h-full">
         {categories?.map((category) => (
           <div
             className="h-fit shadow-sm shadow-gray-300 bg-white rounded-md flex flex-col    p-5  gap-4 "
