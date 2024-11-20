@@ -149,4 +149,42 @@ export const categoryRouter = router({
     });
     return { success: true };
   }),
+
+  pollCategory: privateProcedure
+    .input(z.object({ name: CATEGORY_NAME_VALIDATOR }))
+    .query(async ({ ctx, input }) => {
+      const { name } = input;
+
+      if (!ctx.user) {
+        throw new TRPCError({
+          message: "User not authenticated",
+          code: "UNAUTHORIZED",
+        });
+      }
+      const category = await prisma.eventCategory.findUnique({
+        where: {
+          userId_name: {
+            userId: ctx.user?.id,
+            name: name,
+          },
+        },
+        include: {
+          _count: {
+            select: {
+              events: true,
+            },
+          },
+        },
+      });
+
+      if (!category) {
+        throw new TRPCError({
+          message: `Category ${name} not found`,
+          code: "NOT_FOUND",
+        });
+      }
+      const hasEvents = category._count.events > 0;
+
+      return { hasEvents: hasEvents };
+    }),
 });

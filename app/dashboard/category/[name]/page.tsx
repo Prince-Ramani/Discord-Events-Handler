@@ -2,6 +2,8 @@ import { currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/app/prisma";
 import { notFound } from "next/navigation";
 import Bar from "../../_components/bar";
+import NoCategoryEvents from "./no_category-events";
+import CategoryContent from "../categoy-content";
 
 interface PageProps {
   params: {
@@ -10,7 +12,7 @@ interface PageProps {
 }
 
 const Page = async ({ params }: PageProps) => {
-  const { name } = params;
+  const { name } = await params;
 
   if (!name || typeof name !== "string") {
     return notFound();
@@ -46,7 +48,22 @@ const Page = async ({ params }: PageProps) => {
   if (!category) return notFound();
   const hasEvents = category._count.events > 0;
 
-  return <Bar title={`${category.emoji} ${category.name} events`}></Bar>;
+  return (
+    <div className=" min-h-full  flex flex-col    overflow-y-scroll no-scrollbar  ">
+      <Bar
+        title={`${category.emoji} ${category.name} events`}
+        backButton={true}
+        backButtonUrl="/dashboard"
+      />
+      <div className="flex flex-1  ">
+        {hasEvents ? (
+          <CategoryContent hasEvents={hasEvents} categoryName={name} />
+        ) : (
+          <NoCategoryEvents categoryName={category.name} />
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Page;
