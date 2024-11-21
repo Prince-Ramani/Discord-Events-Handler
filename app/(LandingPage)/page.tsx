@@ -1,4 +1,11 @@
-import { SignInButton, SignOutButton, SignUpButton } from "@clerk/nextjs";
+"use client";
+
+import {
+  SignInButton,
+  SignOutButton,
+  SignUpButton,
+  useUser,
+} from "@clerk/nextjs";
 import { Prism } from "react-syntax-highlighter";
 
 import Image from "next/image";
@@ -11,7 +18,7 @@ import DiscordUi from "@/components/Discord-Ui";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const Page = () => {
-  const isSignedIn = true;
+  const { isSignedIn } = useUser();
   const codeSnippet = `await fetch("http://localhost:3000/api/v1/events", {
     method: "POST",
     body: JSON.stringify({
