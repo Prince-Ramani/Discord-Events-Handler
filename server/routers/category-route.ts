@@ -194,7 +194,7 @@ export const categoryRouter = router({
         name: CATEGORY_NAME_VALIDATOR,
         page: z.number(),
         limit: z.number().max(50),
-        time: z.enum(["today", "week", "year"]),
+        time: z.enum(["today", "week", "month"]),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -217,7 +217,7 @@ export const categoryRouter = router({
         case "week":
           startingDate = startOfWeek(now, { weekStartsOn: 0 });
           break;
-        case "year":
+        case "month":
           startingDate = startOfMonth(now);
       }
 
@@ -231,12 +231,14 @@ export const categoryRouter = router({
           take: limit,
           orderBy: { createdAt: "desc" },
         }),
+
         prisma.event.count({
           where: {
             EventCategory: { name, userId: ctx.user.id },
             createdAt: { gte: startingDate },
           },
         }),
+
         prisma.event
           .findMany({
             where: {
@@ -258,6 +260,7 @@ export const categoryRouter = router({
             return fieldNames.size;
           }),
       ]);
+
       return {
         events,
         eventsCount,
