@@ -1,8 +1,8 @@
 import { prisma } from "@/app/prisma";
 
 import { privateProcedure, router } from "../trpc";
-import { startOfMonth } from "date-fns";
-import { z } from "zod";
+import { startOfDay, startOfMonth, startOfWeek } from "date-fns";
+import { promise, z } from "zod";
 import { CATEGORY_NAME_VALIDATOR } from "@/components/validators/category_name_validator";
 import { colorParser } from "@/lib/color";
 import { TRPCError } from "@trpc/server";
@@ -187,4 +187,82 @@ export const categoryRouter = router({
 
       return { hasEvents: hasEvents };
     }),
+
+  getCategoryByName: privateProcedure
+    .input(
+      z.object({
+        name: CATEGORY_NAME_VALIDATOR,
+        page: z.number(),
+        limit: z.number().max(50),
+        time: z.enum(["today", "week", "year"]),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { limit, name, page, time } = input;
+      if (!ctx.user) {
+        throw new TRPCError({
+          message: "User not authenticated",
+          code: "UNAUTHORIZED",
+        });
+      }
+
+      const now = new Date();
+
+      let startingDate: Date;
+
+      switch (time) {
+        case "today":
+          startingDate = startOfDay(now);
+          break;
+        case "week":
+          startingDate = startOfWeek(now, { weekStartsOn: 0 });
+          break;
+        case "year":
+          startingDate = startOfMonth(now);
+      }
+
+      const [events, eventsCount, uniqueFieldsCount] = await Promise.all([
+        prisma.event.findMany({
+          where: {
+            EventCategory: { name, userId: ctx.user.id },
+            createdAt: { gte: startingDate },
+          },
+          skip: (page - 1) * limit,
+          take: limit,
+          orderBy: { createdAt: "desc" },
+        }),
+        prisma.event.count({
+          where: {
+            EventCategory: { name, userId: ctx.user.id },
+            createdAt: { gte: startingDate },
+          },
+        }),
+        prisma.event
+          .findMany({
+            where: {
+              EventCategory: { name, userId: ctx.user.id },
+              createdAt: { gte: startingDate },
+            },
+            select: {
+              fields: true,
+            },
+            distinct: ["fields"],
+          })
+          .then((events) => {
+            const fieldNames = new Set<string>();
+            events.forEach((event) => {
+              Object.keys(event.fields as object).forEach((fieldName) => {
+                fieldNames.add(fieldName);
+              });
+            });
+            return fieldNames.size;
+          }),
+      ]);
+      return {
+        events,
+        eventsCount,
+        uniqueFieldsCount,
+      };
+    }),
+  //
 });

@@ -6,7 +6,6 @@ import { PlusIcon } from "lucide-react";
 import { prisma } from "../prisma";
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
-import Sidebar from "./_components/sidebar";
 
 const Page = async () => {
   const auth = await currentUser();

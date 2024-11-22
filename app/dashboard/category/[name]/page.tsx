@@ -3,7 +3,7 @@ import { prisma } from "@/app/prisma";
 import { notFound } from "next/navigation";
 import Bar from "../../_components/bar";
 import NoCategoryEvents from "./no_category-events";
-import CategoryContent from "../categoy-content";
+import CategoryContent from "./categoy-content";
 
 interface PageProps {
   params: {

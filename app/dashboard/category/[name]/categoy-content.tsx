@@ -1,4 +1,4 @@
-import NoCategoryEvents from "./[name]/no_category-events";
+import { trpc } from "@/server/client";
 
 interface CategoryContentProps {
   hasEvents: boolean;
