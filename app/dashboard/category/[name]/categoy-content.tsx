@@ -27,7 +27,7 @@ import {
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Card } from "@/components/ui/card";
+
 import {
   Table,
   TableBody,
@@ -101,7 +101,7 @@ const CategoryContent = ({ hasEvents, categoryName }: CategoryContentProps) => {
           );
         },
         cell: ({ row }) => {
-          return new Date(row.getValue("createdAt")).toLocaleString();
+          return (row.getValue("createdAt") as Date).toLocaleString();
         },
       },
       ...(data?.events[0]

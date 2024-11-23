@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogHeader } from "@/components/ui/dialog";
 import { UserButton, useUser } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
+
 import {
   DialogClose,
   DialogContent,
@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "@radix-ui/react-dialog";
 import { Gem, HomeIcon, Key, Menu, Settings, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface SidebarProps {
@@ -20,6 +21,7 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ children, className }: SidebarProps) => {
+  const router = useRouter();
   const { user, isLoaded, isSignedIn } = useUser();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
@@ -116,7 +118,10 @@ const Sidebar = ({ children, className }: SidebarProps) => {
         {/* 2nd */}
         <div className="flex flex-col gap-4">
           <p className="text-gray-700 font-medium">Account</p>
-          <div className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md">
+          <div
+            className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
+            onClick={() => router.push("/dashboard/upgrade")}
+          >
             <span>
               <Gem className="size-5" />
             </span>
