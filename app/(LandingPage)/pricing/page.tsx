@@ -1,10 +1,10 @@
 "use client";
 import Bar from "@/app/dashboard/_components/bar";
-import { CustomButton } from "@/components/CustomButton";
 import Heading from "@/components/Heading";
+import { Button } from "@/components/ui/button";
 import { trpc } from "@/server/client";
 import { useUser } from "@clerk/nextjs";
-import { Check, CheckIcon } from "lucide-react";
+import { CheckIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const Pricing = () => {
@@ -25,10 +25,9 @@ const Pricing = () => {
     "Priority support",
   ];
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    if (!user || user === null) router.push("/sign-in?intent=upgrade");
     if (user) createCheckoutSession();
-
-    router.push("/sign-in?intent=upgrade");
   };
 
   return (
@@ -77,12 +76,13 @@ const Pricing = () => {
                 <span className="font-semibold text-5xl text-black">$41</span>
                 USD
               </h1>
-              <CustomButton
-                className="bg-purple-600 p-2 px-16  md:px-12"
+              <Button
+                size="lg"
+                className="bg-purple-600 border border-white"
                 onClick={handleClick}
               >
                 Get Zeno
-              </CustomButton>
+              </Button>
               <p className="text-sm text-gray-600">
                 Secure payment. Start monitoring in minutes.
               </p>

@@ -3,7 +3,7 @@
 import { SignIn } from "@clerk/nextjs";
 import { useSearchParams } from "next/navigation";
 
-export default async function Page() {
+export default function Page() {
   const searchParams = useSearchParams();
   const intent = searchParams.get("intent");
   return (

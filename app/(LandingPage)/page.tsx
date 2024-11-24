@@ -134,7 +134,10 @@ const Page = () => {
                 Track sales, new users, or any other event
               </div>
             </div>
-            <CustomButton className="bg-purple-600 p-2 px-4 sm:px-5 md:px-6 lg:px-8">
+            <CustomButton
+              className="bg-purple-600 p-2 px-4 sm:px-5 md:px-6 lg:px-8"
+              href="/sign-up"
+            >
               Start For Free Today
             </CustomButton>
           </div>
@@ -334,7 +337,7 @@ const Page = () => {
           </div>
           <div className="mt-10 mb-5  flex justify-center items-center">
             <CustomButton
-              className="bg-purple-400 p-2 w-[50%] min-w-[250px]"
+              className="bg-purple-600 p-2 w-[50%] min-w-[250px]"
               href="/sign-up"
             >
               Start For Free Today

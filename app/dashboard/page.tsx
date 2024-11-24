@@ -6,8 +6,18 @@ import { PlusIcon } from "lucide-react";
 import { prisma } from "../prisma";
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
+import { createCheckoutSession } from "@/lib/stripe";
+import { PaymentSuccessModal } from "@/components/PremiumPurchasedModal";
 
-const Page = async () => {
+const Page = async ({
+  searchParams,
+}: {
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
+}) => {
+  const params = await searchParams;
+
   const auth = await currentUser();
   if (!auth) {
     redirect("/sign-in");
@@ -21,8 +31,20 @@ const Page = async () => {
     redirect("/welcome");
   }
 
+  if (params.intent === "upgrade") {
+    const session = await createCheckoutSession({
+      userEmail: user?.email,
+      userId: user?.id,
+    });
+
+    if (session.url) redirect(session.url);
+  }
+
+  const success = params.success;
+
   return (
     <>
+      {success ? <PaymentSuccessModal /> : null}
       <div className=" min-h-full  flex flex-col    overflow-y-scroll no-scrollbar  ">
         <Bar
           title="Dashboard"
