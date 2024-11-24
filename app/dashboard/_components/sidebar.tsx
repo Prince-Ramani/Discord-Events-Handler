@@ -65,7 +65,10 @@ const Sidebar = ({ children, className }: SidebarProps) => {
               <div className="flex  flex-col gap-4">
                 <div className="flex flex-col gap-2 mt-4  ">
                   <p className="text-gray-700 text-sm">Overview</p>
-                  <div className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md">
+                  <div
+                    className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
+                    onClick={() => router.push("/dashboard")}
+                  >
                     <span>
                       <HomeIcon className="size-5" />
                     </span>
@@ -75,7 +78,10 @@ const Sidebar = ({ children, className }: SidebarProps) => {
                 {/* 2nd */}
                 <div className="flex flex-col gap-2 ">
                   <p className="text-gray-700 text-sm">Account</p>
-                  <div className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md">
+                  <div
+                    className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
+                    onClick={() => router.push("/dashboard/upgrade")}
+                  >
                     <span>
                       <Gem className="size-5" />
                     </span>
@@ -85,13 +91,19 @@ const Sidebar = ({ children, className }: SidebarProps) => {
                 {/* 3rd */}
                 <div className="flex flex-col gap-2 ">
                   <p className="text-gray-700 text-sm">Settings</p>
-                  <div className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md">
+                  <div
+                    className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
+                    onClick={() => router.push("/dashboard/api-key")}
+                  >
                     <span>
                       <Key className="size-5" />
                     </span>
                     <span>Api Key</span>
                   </div>
-                  <div className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md">
+                  <div
+                    className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
+                    onClick={() => router.push("/dashboard/settings")}
+                  >
                     <span>
                       <Settings className="size-5" />
                     </span>
@@ -108,7 +120,10 @@ const Sidebar = ({ children, className }: SidebarProps) => {
         {/* !st */}
         <div className="flex flex-col gap-4 ">
           <p className="text-gray-700 font-medium">Overview</p>
-          <div className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md">
+          <div
+            className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
+            onClick={() => router.push("/dashboard")}
+          >
             <span>
               <HomeIcon className="size-5" />
             </span>
@@ -133,13 +148,19 @@ const Sidebar = ({ children, className }: SidebarProps) => {
 
         <div className="flex flex-col gap-4 ">
           <p className="text-gray-700 font-medium">Settings</p>
-          <div className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md">
+          <div
+            className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
+            onClick={() => router.push("/dashboard/api-key")}
+          >
             <span>
               <Key className="size-5" />
             </span>
             <span>Api Key</span>
           </div>
-          <div className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md">
+          <div
+            className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
+            onClick={() => router.push("/dashboard/settings")}
+          >
             <span>
               <Settings className="size-5" />
             </span>

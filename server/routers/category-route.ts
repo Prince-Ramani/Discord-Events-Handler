@@ -6,6 +6,7 @@ import { promise, z } from "zod";
 import { CATEGORY_NAME_VALIDATOR } from "@/components/validators/category_name_validator";
 import { colorParser } from "@/lib/color";
 import { TRPCError } from "@trpc/server";
+import { FREE_QUOTA, PREMIUM_QUOTA } from "@/config";
 export const categoryRouter = router({
   getEventCategories: privateProcedure.query(async ({ ctx }) => {
     const now = new Date();
@@ -86,22 +87,39 @@ export const categoryRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (!ctx.user) {
+      const { user } = ctx;
+      if (!user) {
         throw new TRPCError({
           message: "User not authenticated",
           code: "UNAUTHORIZED",
         });
       }
 
+      const totalCategories = await prisma.eventCategory.findMany({
+        where: {
+          userId: user.id,
+        },
+      });
+
+      const limit =
+        user.plan === "FREE"
+          ? FREE_QUOTA.maxEventCategories
+          : PREMIUM_QUOTA.maxEventCategories;
+
+      if (totalCategories.length >= limit) {
+        return {
+          message:
+            "Max limit reached please upgrade to PREMIUM to create more categories!",
+        };
+      }
       const category = await prisma.eventCategory.create({
         data: {
           name: input.name.toLowerCase(),
           color: colorParser(input.color),
           emoji: input.emoji,
-          userId: ctx.user?.id,
+          userId: user.id,
         },
       });
-
       return category;
     }),
 
@@ -137,7 +155,7 @@ export const categoryRouter = router({
 
     const user = ctx.user;
 
-    const to = await prisma.eventCategory.createMany({
+    await prisma.eventCategory.createMany({
       data: [
         { name: "bug", emoji: "🐛", color: 0xff6b6b },
         { name: "sale", emoji: "💰", color: 0xffeb3b },

@@ -1,5 +1,5 @@
 "use client";
-import { createCheckoutSession } from "@/lib/stripe";
+
 import { trpc } from "@/server/client";
 import { plan } from "@prisma/client";
 import { endOfMonth, formatDate } from "date-fns";
@@ -10,11 +10,12 @@ let globalDate: Date | null;
 
 const PremiumContent = ({ plan }: { plan: plan }) => {
   const router = useRouter();
-  const { data } = trpc.premium.createCheckoutSession.useMutation({
-    onSuccess: ({ url }) => {
-      if (url) router.push(url);
-    },
-  });
+  const { mutate: createCheckoutSession } =
+    trpc.premium.createCheckoutSession.useMutation({
+      onSuccess: ({ url }) => {
+        if (url) router.push(url);
+      },
+    });
 
   const { data: usageInfo } = trpc.usageInfo.getUsageInfo.useQuery();
 
@@ -48,7 +49,7 @@ const PremiumContent = ({ plan }: { plan: plan }) => {
             </div>
           </div>
           {/* 2nd */}
-          <div className="flex flex-col  bg-white p-4 gap-2 rounded-md ">
+          <div className="flex flex-col  bg-white p-4 gap-2 rounded-md border-2 border-blue-600/40 ">
             <div className="flex justify-between items-center  ">
               <h1 className="font-medium">Event Categories</h1>
               <BarChart className="size-5 text-gray-700" />

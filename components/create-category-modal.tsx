@@ -67,9 +67,17 @@ export const CreateEventCategoryModal = ({
       onSuccess: (data) => {
         utils.category.getEventCategories.invalidate();
         reset();
-        toast({
-          description: `${data.name} category created successfully!`,
-        });
+
+        if ("message" in data) {
+          toast({
+            description: `${data.message}`,
+          });
+        } else {
+          toast({
+            description: `Category created successfully!`,
+          });
+        }
+
         setIsOpen(false);
       },
     });

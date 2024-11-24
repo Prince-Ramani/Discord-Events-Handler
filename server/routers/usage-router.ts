@@ -3,6 +3,7 @@ import { privateProcedure, router } from "../trpc";
 import { prisma } from "@/app/prisma";
 import { addMonths, startOfMonth } from "date-fns";
 import { FREE_QUOTA, PREMIUM_QUOTA } from "@/config";
+import { z } from "zod";
 
 export const usageRouter = router({
   getUsageInfo: privateProcedure.query(async ({ ctx }) => {
@@ -43,4 +44,26 @@ export const usageRouter = router({
       resetDate,
     };
   }),
+
+  setDiscordId: privateProcedure
+    .input(z.object({ discordId: z.string().max(20) }))
+    .mutation(async ({ ctx, input }) => {
+      const { user } = ctx;
+      if (!user) {
+        throw new TRPCError({
+          message: "User not authenticated",
+          code: "UNAUTHORIZED",
+        });
+      }
+
+      await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          discordId: input.discordId,
+        },
+      });
+      return { success: true };
+    }),
 });

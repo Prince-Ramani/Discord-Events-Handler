@@ -16,8 +16,10 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Check, Star, Verified } from "lucide-react";
 import DiscordUi from "@/components/Discord-Ui";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
   const { isSignedIn } = useUser();
   const codeSnippet = `await fetch("http://localhost:3000/api/v1/events", {
     method: "POST",
@@ -56,8 +58,9 @@ const Page = () => {
               <Button
                 variant="ghost"
                 className="font-medium text-sm  sm:text-base hover:text-gray-400"
+                onClick={() => router.push("/pricing")}
               >
-                Princing
+                Pricing
               </Button>
 
               {isSignedIn ? (
