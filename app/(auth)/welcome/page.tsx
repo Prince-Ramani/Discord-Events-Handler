@@ -8,18 +8,22 @@ import { useEffect } from "react";
 
 const Welcome = () => {
   const router = useRouter();
-  const { data, isSuccess } = trpc.user.getUserSyncStatus.useQuery(undefined, {
+  const { data, isError } = trpc.user.getUserSyncStatus.useQuery(undefined, {
     refetchInterval: (query) => {
-      if (query.state.data?.isSynced) return false;
-      return 1000;
+      console.log(query);
+      if (query.state.data?.isSynced) {
+        return false;
+      } else {
+        return 1000;
+      }
     },
   });
 
+  if (isError) console.log(isError);
+
   useEffect(() => {
-    if (data?.isSynced && isSuccess) {
-      router.push("/dashboard");
-    }
-  }, [data, isSuccess, router]);
+    if (data?.isSynced) router.push("/dashboard");
+  }, [data, router]);
 
   return (
     <>

@@ -5,6 +5,7 @@ import { prisma } from "@/app/prisma";
 export const userRouter = router({
   getUserSyncStatus: procedure.query(async () => {
     const auth = await currentUser();
+    console.log(currentUser);
     if (!auth) {
       return { isSynced: false };
     }
@@ -24,6 +25,7 @@ export const userRouter = router({
           },
         });
       }
+
       return { isSynced: true };
     } catch (error) {
       console.error("Error syncing user ", error);

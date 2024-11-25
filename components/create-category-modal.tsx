@@ -65,11 +65,8 @@ export const CreateEventCategoryModal = ({
   const { mutate: createEventCategory, isPending } =
     trpc.category.createCategory.useMutation({
       onSuccess: (data) => {
-        utils.category.getEventCategories.invalidate();
-        reset();
-
         if ("message" in data) {
-          toast({
+          return toast({
             description: `${data.message}`,
           });
         } else {
@@ -77,6 +74,8 @@ export const CreateEventCategoryModal = ({
             description: `Category created successfully!`,
           });
         }
+        utils.category.getEventCategories.invalidate();
+        reset();
 
         setIsOpen(false);
       },

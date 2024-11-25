@@ -17,7 +17,8 @@ const PremiumContent = ({ plan }: { plan: plan }) => {
       },
     });
 
-  const { data: usageInfo } = trpc.usageInfo.getUsageInfo.useQuery();
+  const { data: usageInfo, isFetching } =
+    trpc.usageInfo.getUsageInfo.useQuery();
 
   if (usageInfo?.resetDate) {
     const dd = new Date(usageInfo.resetDate);
@@ -49,6 +50,7 @@ const PremiumContent = ({ plan }: { plan: plan }) => {
             </div>
           </div>
           {/* 2nd */}
+
           <div className="flex flex-col  bg-white p-4 gap-2 rounded-md border-2 border-blue-600/40 ">
             <div className="flex justify-between items-center  ">
               <h1 className="font-medium">Event Categories</h1>

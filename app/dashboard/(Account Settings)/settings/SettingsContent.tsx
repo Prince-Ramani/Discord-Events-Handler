@@ -25,7 +25,7 @@ const SettingsContent = ({ discordId }: { discordId: string }) => {
   };
 
   return (
-    <div className="bg-white rounded-md lg:m-10 max-w-3xl p-2 px-4 ">
+    <div className="bg-white rounded-md m-8 lg:m-10 max-w-3xl p-2 px-4 ">
       <h1 className="font-medium">Discord ID</h1>
       <div className="w-full pr-8 flex items-center mt-2 h-10 ">
         <input

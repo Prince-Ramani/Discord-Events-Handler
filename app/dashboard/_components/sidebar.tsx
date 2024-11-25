@@ -9,7 +9,6 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
-  DialogTrigger,
 } from "@radix-ui/react-dialog";
 import { Gem, HomeIcon, Key, Menu, Settings, X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -23,7 +22,9 @@ interface SidebarProps {
 const Sidebar = ({ children, className }: SidebarProps) => {
   const router = useRouter();
   const { user, isLoaded, isSignedIn } = useUser();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <div className="bg-white w-full md:min-h-full md:w-[200px] lg:w-[300px] fixed p-3 md:p-5">
       <div className="flex justify-between items-center">
@@ -67,7 +68,10 @@ const Sidebar = ({ children, className }: SidebarProps) => {
                   <p className="text-gray-700 text-sm">Overview</p>
                   <div
                     className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
-                    onClick={() => router.push("/dashboard")}
+                    onClick={() => {
+                      setIsOpen(false);
+                      router.push("/dashboard");
+                    }}
                   >
                     <span>
                       <HomeIcon className="size-5" />
@@ -80,7 +84,10 @@ const Sidebar = ({ children, className }: SidebarProps) => {
                   <p className="text-gray-700 text-sm">Account</p>
                   <div
                     className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
-                    onClick={() => router.push("/dashboard/upgrade")}
+                    onClick={() => {
+                      setIsOpen(false);
+                      router.push("/dashboard/upgrade");
+                    }}
                   >
                     <span>
                       <Gem className="size-5" />
@@ -93,7 +100,10 @@ const Sidebar = ({ children, className }: SidebarProps) => {
                   <p className="text-gray-700 text-sm">Settings</p>
                   <div
                     className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
-                    onClick={() => router.push("/dashboard/api-key")}
+                    onClick={() => {
+                      setIsOpen(false);
+                      router.push("/dashboard/api-key");
+                    }}
                   >
                     <span>
                       <Key className="size-5" />
@@ -102,12 +112,21 @@ const Sidebar = ({ children, className }: SidebarProps) => {
                   </div>
                   <div
                     className="flex items-center justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md"
-                    onClick={() => router.push("/dashboard/settings")}
+                    onClick={() => {
+                      setIsOpen(false);
+                      router.push("/dashboard/settings");
+                    }}
                   >
                     <span>
                       <Settings className="size-5" />
                     </span>
                     <span>Account Settings</span>
+                  </div>
+                  <div className="flex items-center group justify-start  gap-4 hover:bg-slate-100 p-1 px-2 cursor-pointer rounded-md">
+                    <span>
+                      <UserButton />
+                    </span>
+                    <span>{user?.emailAddresses[0].emailAddress}</span>
                   </div>
                 </div>
               </div>
@@ -170,9 +189,9 @@ const Sidebar = ({ children, className }: SidebarProps) => {
       </div>
       <div className="absolute bottom-2 hidden md:flex  items-center flex-col justify-around gap-4 text-xl text-gray-800 md:w-[150px] lg:w-[250px] ">
         <div className="border border-black/20  w-full" />
-        <div className="flex justify-start items-center  w-full p-2 gap-4 text-sm lg:text-lg leading-tight tracking-wide hover:bg-slate-200 cursor-pointer  rounded-md">
+        <div className="flex group justify-start items-center  w-full p-2 gap-4 text-xs lg:text-sm leading-tight tracking-wide hover:bg-slate-200 cursor-pointer  rounded-md ">
           <UserButton />
-          {user?.fullName}
+          {user?.emailAddresses[0].emailAddress}
         </div>
       </div>
     </div>
