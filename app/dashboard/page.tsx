@@ -9,13 +9,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { createCheckoutSession } from "@/lib/stripe";
 import { PaymentSuccessModal } from "@/components/PremiumPurchasedModal";
 
-const Page = async ({
-  searchParams,
-}: {
-  searchParams: {
-    [key: string]: string | string[] | undefined;
-  };
-}) => {
+const Page = async ({ searchParams }: any) => {
   const params = await searchParams;
 
   const auth = await currentUser();
@@ -45,7 +39,7 @@ const Page = async ({
   return (
     <>
       {success ? <PaymentSuccessModal /> : null}
-      <div className=" min-h-full  flex flex-col    overflow-y-scroll no-scrollbar  ">
+      <div className=" min-h-full  flex flex-col  overflow-y-scroll no-scrollbar  ">
         <Bar
           title="Dashboard"
           backButton={true}

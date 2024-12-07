@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 interface headingProps {
   children: React.ReactNode;
-  className?: String;
+  className?: string;
 }
 
 function Heading({ children, className }: headingProps) {

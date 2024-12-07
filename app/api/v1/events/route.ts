@@ -87,7 +87,7 @@ export const POST = async (req: NextRequest) => {
 
     try {
       requestData = await req.json();
-    } catch (err) {
+    } catch (_) {
       return NextResponse.json(
         {
           message: "Invalid JSON request body",
@@ -181,8 +181,6 @@ export const POST = async (req: NextRequest) => {
       eventId: event.id,
     });
   } catch (err) {
-    console.error(err);
-
     if (err instanceof z.ZodError) {
       return NextResponse.json({ message: err.message }, { status: 422 });
     }

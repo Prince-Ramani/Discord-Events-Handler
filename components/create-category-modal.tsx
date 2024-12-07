@@ -1,6 +1,5 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { PropsWithChildren, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -166,7 +165,7 @@ export const CreateEventCategoryModal = ({
             <div>
               <Label>Emoji</Label>
               <div className="flex flex-wrap gap-3">
-                {EMOJI_OPTIONS.map(({ emoji, label }) => (
+                {EMOJI_OPTIONS.map(({ emoji }) => (
                   <button
                     key={emoji}
                     type="button"

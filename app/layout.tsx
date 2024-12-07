@@ -30,13 +30,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    //@ts-ignore
     <ClerkProvider
       appearance={{
         elements: {
           formButtonPrimary: "bg-blue-500",
-          footerActionLink: "text-blue-600 no-underline text-decoration-none ",
+          footerActionLink: "text-blue-600 no-underline text-decoration-none",
         },
-        baseTheme: [neobrutalism],
+        baseTheme: neobrutalism,
       }}
     >
       <html lang="en">

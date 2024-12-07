@@ -14,14 +14,9 @@ import { Gem, HomeIcon, Key, Menu, Settings, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-interface SidebarProps {
-  children?: React.ReactNode;
-  className?: string;
-}
-
-const Sidebar = ({ children, className }: SidebarProps) => {
+const Sidebar = () => {
   const router = useRouter();
-  const { user, isLoaded, isSignedIn } = useUser();
+  const { user } = useUser();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 

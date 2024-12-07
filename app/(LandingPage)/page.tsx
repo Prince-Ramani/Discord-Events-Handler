@@ -172,6 +172,7 @@ const Page = () => {
                     <img
                       src="https://res.cloudinary.com/dwxzguawt/image/upload/v1731389149/phone-screen_p4d0ed.png"
                       className="rounded-[calc(theme(borderRadius.3xl)-10px)] h-full w-full  rounded-b-none "
+                      alt="phone"
                     />
                   </div>
                 </div>

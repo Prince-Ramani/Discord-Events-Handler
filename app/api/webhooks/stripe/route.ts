@@ -1,5 +1,5 @@
 import { stripe } from "@/lib/stripe";
-import { headers } from "next/headers";
+
 import Stripe from "stripe";
 import { prisma } from "@/app/prisma";
 

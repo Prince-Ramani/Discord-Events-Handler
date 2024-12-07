@@ -2,11 +2,9 @@
 
 import { trpc } from "@/server/client";
 import { plan } from "@prisma/client";
-import { endOfMonth, formatDate } from "date-fns";
+import { formatDate } from "date-fns";
 import { BarChart } from "lucide-react";
 import { useRouter } from "next/navigation";
-
-let globalDate: Date | null;
 
 const PremiumContent = ({ plan }: { plan: plan }) => {
   const router = useRouter();
@@ -17,13 +15,7 @@ const PremiumContent = ({ plan }: { plan: plan }) => {
       },
     });
 
-  const { data: usageInfo, isFetching } =
-    trpc.usageInfo.getUsageInfo.useQuery();
-
-  if (usageInfo?.resetDate) {
-    const dd = new Date(usageInfo.resetDate);
-    globalDate = endOfMonth(dd);
-  }
+  const { data: usageInfo } = trpc.usageInfo.getUsageInfo.useQuery();
 
   return (
     <div className=" p-4 md:p-6 lg:p-8 flex flex-col gap-2">

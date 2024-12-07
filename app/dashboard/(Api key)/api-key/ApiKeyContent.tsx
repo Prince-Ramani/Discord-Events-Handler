@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from "@/hooks/use-toast";
-import { CheckIcon, ClipboardIcon, Copy, CopyCheck } from "lucide-react";
+import { CheckIcon, ClipboardIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { Tooltip } from "@radix-ui/react-tooltip";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Event, EventCategory } from "@prisma/client";
+import { Event } from "@prisma/client";
 
 import Heading from "@/components/Heading";
 
@@ -105,7 +105,8 @@ const CategoryContent = ({ hasEvents, categoryName }: CategoryContentProps) => {
         },
       },
       ...(data?.events[0]
-        ? Object.keys(data.events[0].fields as object).map((field) => ({
+        ? //@ts-ignore
+          Object.keys(data.events[0].fields as object).map((field) => ({
             accessorFn: (row: Event) =>
               (row.fields as Record<string, any>)[field],
             header: field,
@@ -141,6 +142,7 @@ const CategoryContent = ({ hasEvents, categoryName }: CategoryContentProps) => {
 
   const table = useReactTable({
     data: data?.events || [],
+    //@ts-ignore
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
@@ -161,7 +163,7 @@ const CategoryContent = ({ hasEvents, categoryName }: CategoryContentProps) => {
   const something = useMemo(() => {
     if (!data?.events || data.events.length === 0) return {};
 
-    let sums: Record<
+    const sums: Record<
       string,
       {
         total: number;
@@ -176,10 +178,10 @@ const CategoryContent = ({ hasEvents, categoryName }: CategoryContentProps) => {
     const weekStart = startOfWeek(now, { weekStartsOn: 0 });
     const monthStart = startOfMonth(now);
 
-    data.events.forEach((event) => {
+    data.events.forEach((event: any) => {
       const eventDate = new Date(event.createdAt);
 
-      Object.entries(event.fields as any).forEach(([field, value]) => {
+      Object.entries(event.fields as object).forEach(([field, value]) => {
         if (typeof value === "number") {
           if (!sums[field]) {
             sums[field] = { total: 0, thisWeek: 0, thisMonth: 0, today: 0 };

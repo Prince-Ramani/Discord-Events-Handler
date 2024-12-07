@@ -5,13 +5,9 @@ import Bar from "../../_components/bar";
 import NoCategoryEvents from "./no_category-events";
 import CategoryContent from "./categoy-content";
 
-interface PageProps {
-  params: {
-    name: string | string[] | undefined;
-  };
-}
+type tParams = Promise<{ name: string[] | string | undefined }>;
 
-const Page = async ({ params }: PageProps) => {
+const Page = async ({ params }: { params: tParams }) => {
   const { name } = await params;
 
   if (!name || typeof name !== "string") {

@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 interface maxWidthWrapperProps {
   children: React.ReactNode;
-  className?: String;
+  className?: string;
 }
 
 const MaxWidthWrapper = ({ children, className }: maxWidthWrapperProps) => {

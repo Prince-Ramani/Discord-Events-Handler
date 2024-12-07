@@ -7,7 +7,6 @@ import {
   Gift,
   HeadphonesIcon,
   Home,
-  Menu,
   Mic,
   Phone,
   Pin,
@@ -152,9 +151,9 @@ const DiscordUi = () => {
                 }}
               />
               <DiscordMessage
-                avatarSrc="https://res.cloudinary.com/dwxzguawt/image/upload/v1731126119/cute-black-cat-png_yhsi82.webp"
+                avatarSrc="https://res.cloudinary.com/dwxzguawt/image/upload/v1731306471/tumblr_906625ecdd0eadd9810ff5438572aa43_cc7d6d26_640_mqtzkf.jpg"
                 avatarAlt="bot logo"
-                username="Scout"
+                username="Zeno"
                 timestamp="Today at 6:09 AM"
                 title="New member "
                 badgeColor="ffffff"
